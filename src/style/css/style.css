@@ -50,17 +50,9 @@ body p {
   margin: 50px auto;
 }
 .app .profile .grid {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  grid-template-rows: auto;
-}
-.app .profile .grid h2 {
-  grid-row: 1/span 1;
-  grid-column: 1/span 1;
-}
-.app .profile .grid p {
-  grid-row: 1/span 1;
-  grid-column: 2/span 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
 }
 .app .profile .hosp-container {
   margin-bottom: 20px;

@@ -72,7 +72,7 @@ export default function Login({ checkedLoggedIn, user }) {
 
   useEffect(() => {
     if (response) {
-      window.location.href = '/';
+      window.location.href = '/profile';
     }
   }, [response]);
 
