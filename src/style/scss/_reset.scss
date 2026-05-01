@@ -1,0 +1,21 @@
+*,
+html,
+body,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+a:link,
+a:visited,
+a:focus,
+a:active {
+  text-decoration: none;
+}

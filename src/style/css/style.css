@@ -1,0 +1,112 @@
+*,
+html,
+body,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+a:link,
+a:visited,
+a:focus,
+a:active {
+  text-decoration: none;
+}
+
+body {
+  color: #0a3069;
+  background-color: lightblue;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body a {
+  color: #0a3069;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+}
+body p {
+  font-size: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app .profile {
+  width: 80%;
+  margin: 50px auto;
+}
+.app .profile .grid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-template-rows: auto;
+}
+.app .profile .grid h2 {
+  grid-row: 1/span 1;
+  grid-column: 1/span 1;
+}
+.app .profile .grid p {
+  grid-row: 1/span 1;
+  grid-column: 2/span 1;
+}
+.app .profile .hosp-container {
+  margin-bottom: 20px;
+}
+.app .profile .hosp-container h2 {
+  margin: 20px 0 10px;
+}
+.app .profile .hosp-container p {
+  margin-top: 5px;
+}
+.app .profile button {
+  max-width: 200px;
+}
+.app .order-container {
+  width: 40%;
+  margin: 50px;
+  padding: 20px 60px;
+  font-size: 1.2rem;
+  box-shadow: 0 0 5px grey;
+}
+.app .order-container h2 {
+  text-align: center;
+}
+.app .order-container .form-div {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+.app .order-container .form-div label {
+  margin: 10px;
+  text-align: center;
+}
+.app .order-container select,
+.app .order-container input,
+.app .order-container button {
+  padding: 5px;
+  border-radius: 3px;
+}
+.app .order-container button {
+  margin: 20px 0;
+}
+.app .homepage {
+  text-align: center;
+}
+.app .homepage div {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=style.css.map */

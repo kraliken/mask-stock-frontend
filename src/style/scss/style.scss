@@ -1,0 +1,109 @@
+@use 'reset';
+@use 'variables' as *;
+
+body {
+  color: $color;
+  background-color: $backgroundC;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  a {
+    color: $color;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+  }  
+
+  p {
+    font-size: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+  }
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .profile {
+    width: 80%;
+    margin: 50px auto;
+
+    .grid {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      grid-template-rows: auto;
+
+      h2 {
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 1;
+      }
+
+      p {
+        grid-row: 1 / span 1;
+        grid-column: 2 / span 1;
+      }
+    }
+
+    .hosp-container {
+      margin-bottom: 20px;
+
+      h2 {
+        margin: 20px 0 10px;
+      }
+
+      p {
+        margin-top: 5px;
+      }
+    }
+
+    button {
+      max-width: 200px;
+    }
+  }
+
+  .order-container {
+    width: 40%;
+    margin: 50px;
+    padding: 20px 60px;
+    font-size: 1.2rem;
+    box-shadow: 0 0 5px grey;
+
+    h2 {
+      text-align: center;
+    }
+
+    .form-div {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+  
+      label {
+        margin: 10px;
+        text-align: center;
+      }
+    }
+  
+    select,
+    input,
+    button {
+      padding: 5px;
+      border-radius: 3px;
+    }
+
+    button {
+      margin: 20px 0;
+    }
+  }
+
+  .homepage {
+    text-align: center;
+
+    div {
+      margin-top: 10px;
+    }
+  }
+}

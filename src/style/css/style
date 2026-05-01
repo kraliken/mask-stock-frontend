@@ -1,0 +1,58 @@
+*,
+html,
+body,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+body {
+  color: #0a3069;
+  background-color: lightblue;
+}
+body p {
+  font-size: 20px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app .order-container {
+  width: 40%;
+  margin: 50px;
+  padding: 20px 60px;
+  font-size: 1.2rem;
+  box-shadow: 0 0 5px grey;
+}
+.app .order-container h2 {
+  text-align: center;
+}
+.app .order-container .form-div {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+.app .order-container .form-div label {
+  margin: 10px;
+  text-align: center;
+}
+.app .order-container select,
+.app .order-container input,
+.app .order-container button {
+  padding: 5px;
+  border-radius: 3px;
+}
+.app .order-container button {
+  margin: 20px 0;
+}
+
+/*# sourceMappingURL=style.map */
