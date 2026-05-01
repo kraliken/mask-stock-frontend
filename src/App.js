@@ -18,8 +18,14 @@ function App() {
   const [serverError, setServerError] = useState(false)
   const [hospitalsReady, setHospitalsReady] = useState(false)
   const [sessionReady, setSessionReady] = useState(!localStorage.getItem('sessionId'))
+  const [slowLoad, setSlowLoad] = useState(false)
 
   const loading = !hospitalsReady || !sessionReady
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSlowLoad(true), 5000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const checkedLoggedIn = () => {
     const sessionId = localStorage.getItem("sessionId")
@@ -65,10 +71,18 @@ function App() {
             alignItems: 'center',
             justifyContent: 'center',
             height: '60vh',
-            gap: '16px',
+            gap: '12px',
+            textAlign: 'center',
+            padding: '0 1rem',
           }}>
             <CircularProgress />
-            <p style={{ color: '#555' }}>Betöltés...</p>
+            <p style={{ color: '#555', margin: 0 }}>Betöltés...</p>
+            {slowLoad && (
+              <p style={{ color: '#888', fontSize: '0.85rem', maxWidth: '400px', margin: 0, lineHeight: '1.5' }}>
+                A szerver az ingyenes Render tárhelyen fut, és <strong>15 perc inaktivitás után alvó módba</strong> kerül.
+                Az ébredés akár <strong>~1 percig</strong> is tarthat — kérlek, várj türelmesen!
+              </p>
+            )}
           </div>
         ) : (
           <>

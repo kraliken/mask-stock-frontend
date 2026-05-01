@@ -38,7 +38,7 @@ const Header = ({ user, setUser, loading }) => {
             <a href='/profile'>Profil</a>
             <a href='/order'>Új rendelés</a>
             <a href='/orderhistory'>Rendelési előzmények</a>
-            <div className="logo-name-container">
+            <div className="logo-name-container user-info-container">
               <p>Bejelentkezve: {user.userName}</p>
               <p className="logout" onClick={onLogoutClick}>Kijelentkezés</p>
             </div>

@@ -72,9 +72,7 @@ export default function Login({ checkedLoggedIn, user }) {
 
   useEffect(() => {
     if (response) {
-      setTimeout(function () {
-        window.location.href = '/';
-      }, 800);
+      window.location.href = '/';
     }
   }, [response]);
 
@@ -90,13 +88,6 @@ export default function Login({ checkedLoggedIn, user }) {
         <Typography className="LoginTypography" component='h1' variant='h5'>
           Bejelentkezés
         </Typography>
-
-        {
-          response && (
-            <Typography color='secondary'>
-              Bejelentkezve: {user.userName}.
-            </Typography>)
-        }
 
         <form className={classes.form} noValidate>
           <TextField variant='outlined' margin='normal' fullWidth id='userName' label='Felhasználónév' name='userName'

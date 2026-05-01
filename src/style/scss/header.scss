@@ -14,10 +14,6 @@
     display: flex;
     align-items: center;
 
-    &:last-child {
-      margin-left: auto;
-    }
-
     p {
       margin: 0 5px;
     }
@@ -26,6 +22,14 @@
       width: 50px;
       height: 50px;
     }
+
+    h4 {
+      font-size: 1.1rem;
+    }
+  }
+
+  .user-info-container {
+    margin-left: auto;
   }
 
   .logout {
