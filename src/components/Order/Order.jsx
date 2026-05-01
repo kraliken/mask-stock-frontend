@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import DownloadButton from '../OrderHistoryDemo/DownloadButton'
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function Order({ user, hospitals }) {
   const [selectedHospital, setSelectedHospital] = useState();
   const [quantity, setQuantity] = useState();
@@ -18,7 +20,7 @@ function Order({ user, hospitals }) {
       date: new Date(),
     };
 
-    fetch("http://localhost:5000/orders", {
+    fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

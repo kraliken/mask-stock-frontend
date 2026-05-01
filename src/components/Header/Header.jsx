@@ -1,13 +1,15 @@
 import React from 'react'
 import '../../style/css/header.css'
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Header = ({ user, setUser, loading }) => {
 
   const onLogoutClick = async (e) => {
     // Remove token from localStorage
     const sessionId = localStorage.getItem('sessionId');
 
-    const response = await fetch('http://localhost:5000/sessions/logout', {
+    const response = await fetch(`${API_URL}/sessions/logout`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

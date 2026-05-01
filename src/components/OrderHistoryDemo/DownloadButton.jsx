@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const DownloadButton = ({ invoiceId }) => {
   const [invoiceData, setInvoiceData] = useState(null)
 
   useEffect(() => {
     const handleGetURL = async () => {
-      const response = await fetch("http://localhost:5000/urls", {
+      const response = await fetch(`${API_URL}/urls`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

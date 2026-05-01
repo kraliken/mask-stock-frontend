@@ -3,15 +3,17 @@ import { v4 as uuidv4 } from 'uuid'
 import DownloadButton from './DownloadButton'
 import './OrderHistoryDemo.css'
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const OrderHistoryDemo = ({ user }) => {
   const [ordersArray, setOrdersArray] = useState([])
 
   const handleGetOrders = async (hospital) => {
 
     try {
-      const response = await fetch("http://localhost:5000/orders")
+      const response = await fetch(`${API_URL}/orders`)
       const orders = await response.json()
-      const hospitalArr = await fetch('http://localhost:5000/hospitals')
+      const hospitalArr = await fetch(`${API_URL}/hospitals`)
       const hospitals = await hospitalArr.json()
       const hospitalId = hospitals.filter(item => {
         return item.name === hospital

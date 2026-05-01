@@ -38,6 +38,8 @@ export default function Login({ checkedLoggedIn, user }) {
   const [loginFailed, setLoginFailed] = useState(false);
   const [response, setResponse] = useState('');
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const login = () => {
     if (!loginUsername || !loginPassword) {
       setError(true)
@@ -46,7 +48,7 @@ export default function Login({ checkedLoggedIn, user }) {
     setError(false)
     setLoginFailed(false)
 
-    fetch('http://localhost:5000/login', {
+    fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

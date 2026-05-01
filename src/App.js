@@ -10,6 +10,8 @@ import Header from './components/Header/Header'
 import OrderHistoryDemo from './components/OrderHistoryDemo/OrderHistoryDemo'
 import './style/css/style.css'
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 function App() {
   const [user, setUser] = useState('')
   const [hospitals, setHospitals] = useState([])
@@ -23,7 +25,7 @@ function App() {
     const sessionId = localStorage.getItem("sessionId")
 
     if (sessionId) {
-      fetch('http://localhost:5000/sessions', {
+      fetch(`${API_URL}/sessions`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:5000/hospitals')
+    fetch(`${API_URL}/hospitals`)
       .then(response => response.json())
       .then(data => setHospitals(data))
       .catch(() => setServerError(true))
