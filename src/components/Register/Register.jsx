@@ -78,7 +78,13 @@ function Register({ hospitals }) {
           Regisztráció
         </Typography>
 
-        {response ? <Typography color='secondary'>{response}</Typography> : ''}
+        {response ? (
+          <Typography color='secondary'>
+            {response === 'Successful registration. Log in to continue.'
+              ? 'Sikeres regisztráció! A folytatáshoz jelentkezzen be.'
+              : response}
+          </Typography>
+        ) : ''}
 
         <form className={classes.form} noValidate>
           <TextField variant='outlined' margin='normal' fullWidth id='userName' label='Felhasználónév' name='userName'

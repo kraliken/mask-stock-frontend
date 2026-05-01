@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../style/css/header.css'
 
-const Header = ({ user, setUser }) => {
+const Header = ({ user, setUser, loading }) => {
 
   const onLogoutClick = async (e) => {
     // Remove token from localStorage
@@ -30,9 +30,7 @@ const Header = ({ user, setUser }) => {
         <h4>Mask Stock</h4>
       </div>
 
-      <a href='/'>Főoldal</a>
-
-      {
+      {!loading && (
         user
           ? <>
             <a href='/profile'>Profil</a>
@@ -44,10 +42,11 @@ const Header = ({ user, setUser }) => {
             </div>
           </>
           : <>
+            <a href='/'>Főoldal</a>
             <a href='/login'>Bejelentkezés</a>
             <a href='/register'>Regisztráció</a>
           </>
-      }
+      )}
 
     </div>
   )

@@ -3,12 +3,17 @@
   height: 90px;
   background-color: white;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
 }
 .header .logo-name-container {
   display: flex;
   align-items: center;
+}
+.header .logo-name-container:last-child {
+  margin-left: auto;
 }
 .header .logo-name-container p {
   margin: 0 5px;

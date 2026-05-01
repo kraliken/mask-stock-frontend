@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Register from './components/Register/Register'
 import Login from './components/Login/Login'
@@ -14,7 +14,10 @@ function App() {
   const [user, setUser] = useState('')
   const [hospitals, setHospitals] = useState([])
   const [serverError, setServerError] = useState(false)
-  const [loading, setLoading] = useState(true)
+  const [hospitalsReady, setHospitalsReady] = useState(false)
+  const [sessionReady, setSessionReady] = useState(!localStorage.getItem('sessionId'))
+
+  const loading = !hospitalsReady || !sessionReady
 
   const checkedLoggedIn = () => {
     const sessionId = localStorage.getItem("sessionId")
@@ -31,6 +34,7 @@ function App() {
       }).then(res => res.json())
         .then(data => setUser(data))
         .catch(() => setServerError(true))
+        .finally(() => setSessionReady(true))
     }
   }
 
@@ -43,14 +47,14 @@ function App() {
       .then(response => response.json())
       .then(data => setHospitals(data))
       .catch(() => setServerError(true))
-      .finally(() => setLoading(false))
+      .finally(() => setHospitalsReady(true))
   }, [])
 
 
   return (
     <Router>
       <div className='app'>
-        <Header user={user} setUser={setUser} />
+        <Header user={user} setUser={setUser} loading={loading} />
 
         {loading ? (
           <div style={{
@@ -89,15 +93,15 @@ function App() {
               </Route>
 
               <Route path='/profile'>
-                <Profile user={user} hospitals={hospitals} />
+                {user ? <Profile user={user} hospitals={hospitals} /> : <Redirect to='/login' />}
               </Route>
 
               <Route path='/order'>
-                <Order user={user} hospitals={hospitals} />
+                {user ? <Order user={user} hospitals={hospitals} /> : <Redirect to='/login' />}
               </Route>
 
               <Route path='/orderhistory'>
-                {user ? <OrderHistoryDemo user={user} /> : <Homepage />}
+                {user ? <OrderHistoryDemo user={user} /> : <Redirect to='/login' />}
               </Route>
 
               <Route path='/'>

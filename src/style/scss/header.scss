@@ -5,13 +5,19 @@
   height: 90px;
   background-color: white;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
 
   .logo-name-container {
     display: flex;
     align-items: center;
-    
+
+    &:last-child {
+      margin-left: auto;
+    }
+
     p {
       margin: 0 5px;
     }

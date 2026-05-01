@@ -35,10 +35,17 @@ export default function Login({ checkedLoggedIn, user }) {
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [error, setError] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
   const [response, setResponse] = useState('');
 
   const login = () => {
-    //if (user) {
+    if (!loginUsername || !loginPassword) {
+      setError(true)
+      return
+    }
+    setError(false)
+    setLoginFailed(false)
+
     fetch('http://localhost:5000/login', {
       method: 'POST',
       headers: {
@@ -51,12 +58,14 @@ export default function Login({ checkedLoggedIn, user }) {
       })
     }).then(res => res.json())
       .then(res => {
-        setResponse(res)
-        localStorage.setItem('sessionId', res)
-        checkedLoggedIn()
+        if (res.msg) {
+          setLoginFailed(true)
+        } else {
+          setResponse(res)
+          localStorage.setItem('sessionId', res)
+          checkedLoggedIn()
+        }
       })
-      .then(() => setError(false))
-    //} else setError(true)
   };
 
   useEffect(() => {
@@ -99,12 +108,17 @@ export default function Login({ checkedLoggedIn, user }) {
           </Button>
         </form>
 
-        {
-          error && (
-            <Typography color='secondary'>
-              Kérjük, töltse ki mindkét mezőt.
-            </Typography>)
-        }
+        {error && (
+          <Typography color='secondary'>
+            Kérjük, töltse ki mindkét mezőt.
+          </Typography>
+        )}
+
+        {loginFailed && (
+          <Typography color='secondary'>
+            Hibás felhasználónév vagy jelszó.
+          </Typography>
+        )}
       </div>
 
       <div>

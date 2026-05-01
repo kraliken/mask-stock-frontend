@@ -173,3 +173,50 @@ Ha a backend nem elérhető, az alkalmazás betöltési animációt jelenít meg
 **Probléma:** A piros szerver-hibaüzenet sávban a szöveg Times New Roman betűtípussal jelent meg, holott az alkalmazás egészében Roboto használatos.
 
 **Megoldás:** A `fontFamily: '"Roboto", sans-serif'` property hozzáadva a hibaüzenet `div` inline stílusához. (Gyökéroka: a globális CSS csak a `h1–h5`, `a` és `p` tagekre állít be fontot, a sima `div` tartalma a böngésző alapértelmezett betűtípusát örökölte.)
+
+---
+
+### 7. Bejelentkezési validáció és hibakezelés (`Login.jsx`)
+
+**Probléma:** A login form hiányos validációval rendelkezett – a fetch hívás üres mezőkkel is elindult, a backend válaszát pedig ellenőrzés nélkül tárolta sessionId-ként. Ha a backend `{ msg: 'User not found!' }` vagy `{ msg: 'Password incorrect!' }` objektumot küldött vissza (404), azt is eltárolta, és az átirányítás megtörtént, tehát nem létező felhasználóval is be lehetett „jelentkezni".
+
+**Megoldás:**
+- Fetch előtt üres mezők ellenőrzése – ha valamelyik hiányzik, a kérés el sem indul.
+- `loginFailed` állapot hozzáadva a backend hibaválaszának jelzésére.
+- A backend válasz ellenőrzése: ha `res.msg` létezik (hibaválasz), `loginFailed` állítódik be; csak érvényes session ID esetén történik tárolás és átirányítás.
+- Két különböző hibaüzenet: üres mezőkre és hibás hitelesítő adatokra.
+
+---
+
+### 8. Regisztrációs visszajelzés lokalizálása (`Register.jsx`)
+
+**Probléma:** Sikeres regisztráció esetén a backend által visszaküldött angol nyelvű szöveg (`Successful registration. Log in to continue.`) jelent meg közvetlenül a felületen.
+
+**Megoldás:** A megjelenítés előtt az ismert backend üzenet magyar szövegre cserélve (`Sikeres regisztráció! A folytatáshoz jelentkezzen be.`). A `useEffect`-beli string-összehasonlítás érintetlen maradt, mivel az a backend válaszát vizsgálja.
+
+---
+
+### 9. Védett route-ok és helytelen átirányítás (`App.js`)
+
+**Probléma:** A `/orderhistory` route nem bejelentkezett állapotban a `<Homepage>` komponenst mutatta a `/login`-ra való átirányítás helyett. A `/profile` és `/order` route-ok egyáltalán nem voltak védve.
+
+**Megoldás:** Mindhárom védett route-on `<Redirect to='/login' />` kerül megjelenítésre, ha a `user` állapot üres.
+
+---
+
+### 10. Race condition a betöltési állapotban (`App.js`)
+
+**Probléma:** A `loading` állapotot egyedül a kórházlista-lekérés `.finally()` ága vezérelte. Ha ez hamarabb fejeződött be, mint a session-ellenőrzés, a route-ok `user = ''` állapottal rendereltek, és a védett oldalakon azonnal `/login`-ra irányítottak – még bejelentkezett felhasználó esetén is.
+
+**Megoldás:** Az egységes `loading` state helyett két külön állapot: `hospitalsReady` és `sessionReady`. A `loading` értéke ezekből számolt (`!hospitalsReady || !sessionReady`). A `sessionReady` kezdeti értéke `true`, ha nincs `sessionId` a localStorage-ban (nincs mit megvárni); ha van, `false`, és csak a session-check `.finally()`-jában vált `true`-ra. A route-ok így csak akkor renderelnek, ha mindkét kérés befejeződött.
+
+---
+
+### 11. Navigáció villogása és elrendezése (`Header.jsx`, `header.scss`)
+
+**Probléma:** A Header a `loading` feltételen kívül renderelt, ezért a navigációs linkek azonnal megjelentek `user = ''` állapottal (nem-auth linkek), majd a session-ellenőrzés után váltottak az auth linkekre – ez látható villogást okozott. Emellett a `space-evenly` elrendezés miatt a logó pozíciója ugrott attól függően, hány elem volt mellette.
+
+**Megoldás:**
+- A `loading` prop átadva a Header komponensnek; a navigációs linkek csak `!loading` esetén renderelnek, így az auth állapot már biztosan ismert a megjelenítéskor.
+- A „Főoldal" link átkerült a nem-auth ágba – bejelentkezve csak a logó és az auth linkek láthatók.
+- A header elrendezése `space-evenly`-ről `flex-start` + `gap: 2rem` + `padding: 0 2rem`-re változott; a felhasználói info konténer `margin-left: auto`-t kapott, így mindig a jobb szélen jelenik meg.
